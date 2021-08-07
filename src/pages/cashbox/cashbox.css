@@ -1,0 +1,12 @@
+.cashbox-header {
+    display: flex;
+    justify-content: center;
+}
+
+.cashbox-header-jobshift {
+    display: flex;
+}
+
+.cashbox-header-jobshift-time {
+    margin-left: 50px;
+}
