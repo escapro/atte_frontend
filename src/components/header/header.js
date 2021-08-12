@@ -1,12 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { profileAPI } from '../../adapters/api';
 import profileImg from '../../assets/icons/profile.png'
 import settingsImg from '../../assets/icons/settings.png'
 import './header.css'
 
-export default class Header extends Component {
+class Header extends Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            username: '',
+            firstName: '',
+            
+        }
+
+        this.logout = this.logout.bind(this)
+    }
+
+    logout() {
+        profileAPI.logout(this.props.token)
+        .then((result) => {
+            localStorage.setItem('token', '')
+            window.location.pathname = '/auth'
+        })
+        .catch((result) => {
+
+        })
     }
 
     render() {
@@ -14,13 +35,16 @@ export default class Header extends Component {
             <div className="header">
                 <div className="logo">
                     <h1>atte</h1>
+                    <h3>{this.props.client.name}</h3>
+                    <span>{this.props.user.role}</span>
                 </div>
                 <div className="header-menu">
                     <div className="header-menu-item">Касса</div>
                     <div className="header-menu-item">График</div>
                 </div>
                 <div className='header-rightMenu'>
-                    <div className='header-rightMenu-item'>
+                    <div className='header-rightMenu-item' onClick={this.logout}>
+                        <span>{this.props.user.username}</span>
                         <img src={profileImg} alt={"logo"} />
                     </div>
                     <div className='header-rightMenu-item'>
@@ -31,3 +55,5 @@ export default class Header extends Component {
         )
     }
 }
+
+export default connect((state) => state)(Header)

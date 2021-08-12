@@ -1,12 +1,65 @@
+.page-wrapper {
+  margin-right: var(--margin-right);
+  margin-left: var(--margin-left);
+}
+
 .cashbox-header {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .cashbox-header-jobshift {
-    display: flex;
+  display: flex;
 }
 
 .cashbox-header-jobshift-time {
-    margin-left: 50px;
+  margin-left: 50px;
+}
+
+.tables_wrapper {
+  display: flex;
+}
+
+.tables_wrapper .table:not(:last-child) {
+  margin-right: 20px;
+}
+
+.table {
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.table-title {
+  text-align: center;
+  display: block;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.table-column-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  background-color: #f1f0f8;
+}
+
+.table-column-title-item {
+  padding: 0 15px;
+  text-align: center;
+}
+
+.table-body {
+    padding: 15px;
+}
+
+.table-body-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.table-body-row-item {
+    
 }

@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import '../../assets/style.css'
 import './auth.css'
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeToken } from '../../store/actions'
+import { profileAPI, tokenAPI } from '../../adapters/api';
 
-export default class App extends Component {
+class Auth extends Component {
 
   constructor(props) {
     super(props)
@@ -20,22 +24,50 @@ export default class App extends Component {
   }
 
   handleChangeUsername(event) {
-    this.setState({username: event.target.value});
+    this.setState({ username: event.target.value });
   }
   handleChangePassword(event) {
-    this.setState({password: event.target.value});
+    this.setState({ password: event.target.value });
   }
 
   login(event) {
     event.preventDefault();
 
-    axios
-    .post('http://127.0.0.1:8000/token/', {'username': this.state.username, 'password': this.state.password})
-    .then(respone => {
-      localStorage.setItem('token', respone.data.access);
-      this.props.history.push('/')
-    })
-    .catch(err => {console.error(err)})
+    this.props.adapter.getToken(this.state.username, this.state.password)
+      .then(response => {
+        this.props.changeToken(response.data.token)
+        localStorage.setItem('token', response.data.token)
+        window.location.pathname = '/'
+      })
+
+    // axios
+    // .post('http://127.0.0.1:8000/api/token/', {'username': this.state.username, 'password': this.state.password})
+    // .then(respone => {
+
+    //   this.props.changeToken(respone.data.access)
+
+    //   var config = {
+    //     headers: { 
+    //       'authorization': 'Bearer ' + this.props.token,
+    //       'Accept' : 'application/json',
+    //       'Content-Type': 'application/json'
+    //       }
+    //    };
+
+    //   axios
+    //   .get('http://127.0.0.1:8000/api/profile/', config)
+    //   .then(respone => {
+
+    //     if (respone.data.role == 'manager') {
+    //       this.props.history.push('/projects') 
+    //     }else {
+    //       this.props.history.push('/')
+    //     }
+
+    //   })
+    //   .catch(err => {console.error(err)})
+    // })
+    // .catch(err => {console.error(err)})
   }
 
   render() {
@@ -53,3 +85,11 @@ export default class App extends Component {
     )
   }
 }
+
+const putActionsToProps = (dispatch) => {
+  return {
+    changeToken: bindActionCreators(changeToken, dispatch),
+  }
+}
+
+export default connect((state) => state, putActionsToProps)(Auth)

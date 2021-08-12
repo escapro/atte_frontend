@@ -27,16 +27,3 @@ body {
 .page-wrapper {
     margin-top: 50px;
 }
-
-.table {
-    background-color: #fff;
-}
-
-.table-title {
-    text-align: center;
-    display: block;
-}
-
-.table-column-header {
-    display: flex;
-}

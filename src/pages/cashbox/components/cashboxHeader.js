@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../assets/style.css'
+import '../../../assets/style.css'
 
 export default class CashboxHeader extends Component {
   render() {
