@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { profileAPI } from '../../adapters/api';
 import profileImg from '../../assets/icons/profile.png'
 import settingsImg from '../../assets/icons/settings.png'
 import './header.css'
@@ -10,17 +9,11 @@ class Header extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            username: '',
-            firstName: '',
-            
-        }
-
         this.logout = this.logout.bind(this)
     }
 
     logout() {
-        profileAPI.logout(this.props.token)
+        this.props.adapter.logout()
         .then((result) => {
             localStorage.setItem('token', '')
             window.location.pathname = '/auth'

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Loader from 'react-loader-spinner'
 import './assets/style.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,60 +19,67 @@ class App extends Component {
       '/auth'
     ]
 
+    if (!this.allRouterPaths.includes(window.location.pathname)) window.location.href = '/'
+
     this.state = {
-      isLogin: false
+      isLogin: false,
+      loading: true
     }
 
-    if (!this.allRouterPaths.includes(window.location.pathname)) window.location.href = '/'
+    props.setAdapter(API)
+
+    const domen = window.location.hostname
+    const subdomain = domen.split('.')[0]
+
+    API.subdomain = subdomain
+    API.token = props.token
 
   }
 
   async getProfile() {
-   
+
     if (localStorage.getItem('token')) {
-      await API.getProfile()
+      return await API.getProfile()
         .then(response => {
           this.props.changeUserdata(response.data)
-          this.setState({isLogin: true})
+          this.setState({ isLogin: true })
         })
         .catch(() => {
           localStorage.setItem('token', '')
           window.location = '/auth'
         })
-    }else {
+    } else {
       window.location = '/auth'
     }
   }
 
   getClient() {
-    if(this.state.isLogin) {
+    if (this.state.isLogin) {
       API.getClient()
         .then(response => {
           this.props.changeClient(response.data)
+          this.setState({loading: false})
         })
         .catch(() => {
-         
+
         })
     }
   }
 
   componentDidMount() {
 
-    this.props.setAdapter(API)
-
-    const domen = window.location.hostname
-    const subdomain = domen.split('.')[0]
-
-    API.subdomain = subdomain
-    API.token = this.props.token
-
-    if (window.location.pathname == '/auth') return
+    if (window.location.pathname == '/auth') {
+      this.setState({
+        loading: false
+      })
+      return
+    }
 
     this.getProfile()
-    .then(() => {
-      API.user = this.props.user
-      this.getClient()
-    })
+      .then(() => {
+        API.user = this.props.user
+        this.getClient()
+      })
 
   }
 
@@ -79,9 +87,19 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="main">
-          <div className="root"><Routers /></div>
-        </div>
+        {
+          this.state.loading ?
+            <Loader
+              type="Oval"
+              color="#00BFFF"
+              height={100}
+              width={100}
+            />
+            :
+            <div className="main">
+              <div className="root"><Routers /></div>
+            </div>
+        }
       </div>
     )
   }

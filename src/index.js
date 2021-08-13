@@ -12,7 +12,7 @@ import URI from 'urijs';
 const store = createStore(rootReducer);
 
 store.subscribe(() => {
-  console.log(store.getState());
+  // console.log(store.getState());
 })
 
 if(!localStorage.getItem('token')) localStorage.setItem('token', '')

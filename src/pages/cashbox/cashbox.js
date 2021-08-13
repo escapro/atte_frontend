@@ -12,10 +12,38 @@ class Cashbox extends Component {
 
   constructor(props) {
     super(props)
+
+    this.state = {
+      loading: true,
+      shifts: [],
+      employees: []
+    }
   }
 
   componentDidMount() {
-    console.log(this.props.adapter);
+
+    this.getShifts()
+    this.getEmployees()
+  }
+
+  getShifts() {
+    this.props.adapter.getShifts()
+      .then((result) => {
+        this.setState({
+          shifts: result.data,
+          loading: false
+        })
+      })
+  }
+
+  getEmployees() {
+    this.props.adapter.getEmployees()
+      .then((result) => {
+        this.setState({
+          employees: result.data,
+          loading: false
+        })
+      })
   }
 
   render() {
@@ -26,8 +54,21 @@ class Cashbox extends Component {
           <CashboxHeader />
           <div className="mt_mb"></div>
           <div className="tables_wrapper">
-            <MoneyAccounting/>
-            <OnlineCashbox/>
+            {
+              !this.state.loading && this.state.shifts.length > 0 && this.state.employees.length > 0 ?
+                <>
+                  <MoneyAccounting
+                    shifts={this.state.shifts}
+                    employees={this.state.employees}
+                  />
+                  <OnlineCashbox
+                    shifts={this.state.shifts}
+                  />
+                </>
+                :
+                <>
+                </>
+            }
           </div>
         </div>
         <Footer />

@@ -36,9 +36,11 @@ class OnlineCashbox extends Component {
                     <div className="table-body-row">
                         <div className="table-body-row-item">
                             <select style={{ color: 'grey' }}>
-                                <option>Утро</option>
-                                <option>День</option>
-                                <option>Ночь</option>
+                                {
+                                    this.props.shifts.map((shift) => {
+                                        return <option key={shift.id} value={shift.id}>{shift.shift_type}</option>
+                                    })
+                                }
                             </select>
                         </div>
                         <div className="table-body-row-item">
