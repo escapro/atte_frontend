@@ -36,23 +36,23 @@ class OnlineCashbox extends Component {
                     <div className="table-body-row">
                         <div className="table-body-row-item">
                             <select style={{ color: 'grey' }}>
+                                <option value="0">Выбор</option>
                                 {
                                     this.props.shifts.map((shift) => {
-                                        return <option key={shift.id} value={shift.id}>{shift.shift_type}</option>
+                                        return <option key={shift.id} value={shift.id}>{shift.name}</option>
                                     })
                                 }
                             </select>
                         </div>
                         <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} />
+                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('sales', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} />
+                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cashbox_fact', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} />
+                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('refund', parseInt(event.target.value))} />
                         </div>
-
                         <div className="table-body-row-item">
                             <span style={{ color: 'grey' }}>12300</span>
                         </div>
