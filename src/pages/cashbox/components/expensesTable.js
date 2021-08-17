@@ -24,11 +24,11 @@ class ExpensesTable extends Component {
     }
 
     componentDidMount() {
-        this.getExpenses()
+        this.getShiftExpenses()
     }
 
-    getExpenses() {
-        this.props.adapter.expenses('list')
+    getShiftExpenses() {
+        this.props.adapter.shiftExpenses('list')
             .then((result) => {
                 this.setState({
                     expenses: result.data
@@ -72,9 +72,9 @@ class ExpensesTable extends Component {
 
         if(error) return
 
-        this.props.adapter.expenses('create', data)
+        this.props.adapter.shiftExpenses('create', data)
             .then((result) => {
-                this.getExpenses()
+                this.getShiftExpenses()
                 this.time.current.value = ''
                 this.who.current.value = ''
                 this.whom.current.value = ''

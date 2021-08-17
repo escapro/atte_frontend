@@ -17,16 +17,16 @@ class OnlineCashbox extends Component {
                 </div>
                 <div className="table-column-title">
                     <div className="table-column-title-item">
-                        <span>Смена</span>
-                    </div>
-                    <div className="table-column-title-item">
                         <span>Продажи</span>
                     </div>
                     <div className="table-column-title-item">
                         <span>В кассе</span>
                     </div>
                     <div className="table-column-title-item">
-                        <span>Возврат</span>
+                        <span>Возврат налом</span>
+                    </div>
+                    <div className="table-column-title-item">
+                        <span>Возврат картой</span>
                     </div>
                     <div className="table-column-title-item">
                         <span>Разница</span>
@@ -35,26 +35,29 @@ class OnlineCashbox extends Component {
                 <div className="table-body">
                     <div className="table-body-row">
                         <div className="table-body-row-item">
-                            <select style={{ color: 'grey' }}>
-                                <option value="0">Выбор</option>
+                            <input type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('sales', parseInt(event.target.value))} />
+                        </div>
+                        <div className="table-body-row-item">
+                            <input type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cashbox_fact', parseInt(event.target.value))} />
+                        </div>
+                        <div className="table-body-row-item">
+                            <input type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cash_refund', parseInt(event.target.value))} />
+                        </div>
+                        <div className="table-body-row-item">
+                            <input type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('noncash_refund', parseInt(event.target.value))} />
+                        </div>
+                        <div className="table-body-row-item">
+                            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                                <div style={{display: 'flex', flexDirection: 'column', marginRight: 10}}>
+                                    <span style={{ color: 'grey' }}><b>Налом: </b>{this.props.difference.cash}</span>
+                                    <span style={{ color: 'grey' }}><b>Картой: </b>{this.props.difference.noncash}</span>
+                                </div>
                                 {
-                                    this.props.shifts.map((shift) => {
-                                        return <option key={shift.id} value={shift.id}>{shift.name}</option>
-                                    })
+                                    this.props.difference.cash != 0 || this.props.difference.noncash !=0 ?
+                                    <b style={{color: 'red'}}>⚠</b> 
+                                    : ''
                                 }
-                            </select>
-                        </div>
-                        <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('sales', parseInt(event.target.value))} />
-                        </div>
-                        <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cashbox_fact', parseInt(event.target.value))} />
-                        </div>
-                        <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('refund', parseInt(event.target.value))} />
-                        </div>
-                        <div className="table-body-row-item">
-                            <span style={{ color: 'grey' }}>12300</span>
+                            </div>
                         </div>
                     </div>
                 </div>

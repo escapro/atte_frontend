@@ -62,16 +62,16 @@ export class Adapter {
             })
     }
 
-    expenses(action, data) {
+    shiftExpenses(action, data) {
 
         switch (action) {
             case 'list':
-                return axios.get(this.getBackendUrl() + 'expenses/', this.getApiHeaders())
+                return axios.get(this.getBackendUrl() + 'shift_expenses/', this.getApiHeaders())
                     .then(response => {
                         return { 'data': response.data, 'status': response.status }
                     })
             case 'create':
-                return axios.post(this.getBackendUrl() + 'expenses/', data, this.getApiHeaders())
+                return axios.post(this.getBackendUrl() + 'shift_expenses/', data, this.getApiHeaders())
                     .then(response => {
                         return { 'data': response.data, 'status': response.status }
                     })

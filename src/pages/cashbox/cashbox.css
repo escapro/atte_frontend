@@ -48,6 +48,10 @@
     padding: 15px;
 }
 
+.table-body input {
+  width: 50px;
+}
+
 .table-body-row {
   display: flex;
   justify-content: space-between;

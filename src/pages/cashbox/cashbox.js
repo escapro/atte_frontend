@@ -8,6 +8,9 @@ import CashboxHeader from './components/cashboxHeader'
 import MoneyAccounting from './components/moneyAccounting'
 import OnlineCashbox from './components/onlineCashbox';
 import CostsTable from './components/expensesTable';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root')
 
 class Cashbox extends Component {
 
@@ -19,6 +22,7 @@ class Cashbox extends Component {
       shifts: [],
       employees: [],
       expenseCategories: [],
+      modalIsOpen: false,
       accounting: {
         shift_start_time: null,
         shift_end_time: null,
@@ -30,13 +34,20 @@ class Cashbox extends Component {
         noncash_end: null,
         sales: null,
         cashbox_fact: null,
-        refund: null,
+        cash_refund: null,
+        noncash_refund: null,
         date: null,
+        difference_report: null
+      },
+      difference: {
+        cash: 0,
+        noncash: 0,
       }
     }
 
     this.handleChangeData = this.handleChangeData.bind(this);
     this.closeShift = this.closeShift.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -79,7 +90,20 @@ class Cashbox extends Component {
   closeShift() {
     this.props.adapter.closeShift(this.state.accounting)
       .then((result) => {
-        console.log(result);
+        if (!result.data.success) {
+          this.setState(prevState => ({
+            difference: {
+              ...prevState.difference,
+              cash: result.data.data.cash_difference,
+              noncash: result.data.data.noncash_difference
+            }
+          }))
+
+          this.openModal()
+        }else {
+          alert("Свобода!\nВаша смена закрыта")
+          this.logout()
+        }
       })
   }
 
@@ -92,9 +116,53 @@ class Cashbox extends Component {
     }))
   }
 
+  openModal() {
+    this.setState({modalIsOpen: true})
+  }
+
+  closeModal() {
+    this.setState({modalIsOpen: false})
+  }
+
+  logout() {
+    this.props.adapter.logout()
+    .then((result) => {
+        localStorage.setItem('token', '')
+        window.location.pathname = '/auth'
+    })
+    .catch((result) => {
+
+    })
+}
+
   render() {
     return (
       <>
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            contentLabel="Example Modal"
+            style={{
+              content: {
+                width: 200,
+                height: 200,
+                transform: 'translate(-50%, -20%)',
+                top: '20%',
+                left: '50%',
+                right: 'auto',
+                bottom: 'auto',
+              }
+            }}
+          >
+            <h3>Откуда разница?</h3>
+            <small style={{display: 'flex', flexDirection: 'column'}}>
+              <span style={{ color: 'grey' }}><b>Налом: </b>{this.state.difference.cash}</span>
+              <span style={{ color: 'grey' }}><b>Картой: </b>{this.state.difference.noncash}</span>
+            </small>
+            <div className="mt_mb"></div>
+            <textarea onChange={(event) => this.handleChangeData('difference_report', event.target.value)} />
+            <div className="mt_mb"></div>
+            <button onClick={this.closeModal}>Закрыть</button> <button onClick={this.closeShift}>Отправить</button>
+          </Modal>
         <Header />
         <div className="page-wrapper">
           <CashboxHeader
@@ -116,6 +184,7 @@ class Cashbox extends Component {
                   <OnlineCashbox
                     shifts={this.state.shifts}
                     handleChangeData={this.handleChangeData}
+                    difference={this.state.difference}
                   />
                 </div>
                 <div className="mt_mb"></div>
