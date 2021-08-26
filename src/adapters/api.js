@@ -40,6 +40,46 @@ export class Adapter {
             })
     }
 
+    checkShift() {
+        return axios.get(this.getBackendUrl() + 'shifts/check/', this.getApiHeaders())
+            .then(response => {
+                return { 'data': response.data, 'status': response.status }
+            })
+    }
+
+    openShift(data) {
+        return axios.post(this.getBackendUrl() + 'shifts/open/', data, this.getApiHeaders())
+            .then(response => {
+                return { 'data': response.data, 'status': response.status }
+            })
+    }
+
+    activeShift(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'shifts/active/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    })
+            case 'updateAction':
+                return axios.put(this.getBackendUrl() + 'shifts/active/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    })
+            case 'close':
+                return axios.post(this.getBackendUrl() + 'shifts/active/close', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    })
+        }
+    }
+
+    closeWorkingDay(data) {
+        return axios.post(this.getBackendUrl() + 'working_day/active/close', data, this.getApiHeaders())
+            .then(response => {
+                return { 'data': response.data, 'status': response.status }
+            })
+    }
 
     getShiftTypes() {
         return axios.get(this.getBackendUrl() + 'shift_types/', this.getApiHeaders())
@@ -63,7 +103,6 @@ export class Adapter {
     }
 
     shiftExpenses(action, data) {
-
         switch (action) {
             case 'list':
                 return axios.get(this.getBackendUrl() + 'shift_expenses/', this.getApiHeaders())
@@ -76,12 +115,5 @@ export class Adapter {
                         return { 'data': response.data, 'status': response.status }
                     })
         }
-    }
-
-    closeShift(data) {
-        return axios.post(this.getBackendUrl() + 'close_shift/', data, this.getApiHeaders())
-            .then(response => {
-                return { 'data': response.data, 'status': response.status }
-            })
     }
 }

@@ -47,7 +47,7 @@ export default class MoneyAccounting extends Component {
                             <select style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('shift_type', parseInt(event.target.value))}>
                                 <option value="0">Выбор</option>
                                 {
-                                    this.props.shifts.map((shift) => {
+                                    this.props.shift_types.map((shift) => {
                                         return <option key={shift.id} value={shift.id}>{shift.name}</option>
                                     })
                                 }

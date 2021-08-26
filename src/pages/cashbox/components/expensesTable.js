@@ -101,7 +101,7 @@ class ExpensesTable extends Component {
                     <div className="table-column-title-item">
                         <select ref={this.shiftType}>
                             {
-                                this.props.shifts.map((shift) => {
+                                this.props.shift_types.map((shift) => {
                                     return <option key={shift.id} value={shift.id}>{shift.name}</option>
                                 })
                             }
