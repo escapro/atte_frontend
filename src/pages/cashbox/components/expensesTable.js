@@ -45,7 +45,6 @@ class ExpensesTable extends Component {
         let data = {}
         let error = false
 
-        data['shift_type'] = this.shiftType.current.value
         data['expense_category'] = this.expenseCategory.current.value
         data['time'] = this.time.current.value
         data['who'] = this.who.current.value
@@ -88,7 +87,6 @@ class ExpensesTable extends Component {
             <div className="table" style={{ width: '100%' }}>
                 <div className="table-header" style={{ padding: 15 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span>Тип смены</span>
                         <span>Время</span>
                         <span>Кто</span>
                         <span>Кому</span>
@@ -99,13 +97,6 @@ class ExpensesTable extends Component {
                 </div>
                 <form className="table-column-title" onSubmit={this.formSubmit}>
                     <div className="table-column-title-item">
-                        <select ref={this.shiftType}>
-                            {
-                                this.props.shift_types.map((shift) => {
-                                    return <option key={shift.id} value={shift.id}>{shift.name}</option>
-                                })
-                            }
-                        </select>
                     </div>
                     <div className="table-column-title-item">
                         <input type='time' ref={this.time} />

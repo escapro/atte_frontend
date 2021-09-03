@@ -17,12 +17,6 @@ export default class MoneyAccounting extends Component {
                 </div>
                 <div className="table-column-title">
                     <div className="table-column-title-item">
-                        <span>Смена</span>
-                    </div>
-                    <div className="table-column-title-item">
-                        <span>Сотрудник</span>
-                    </div>
-                    <div className="table-column-title-item">
                         <span>Наличные начало</span>
                     </div>
                     <div className="table-column-title-item">
@@ -44,36 +38,16 @@ export default class MoneyAccounting extends Component {
                 <div className="table-body">
                     <div className="table-body-row">
                         <div className="table-body-row-item">
-                            <select style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('shift_type', parseInt(event.target.value))}>
-                                <option value="0">Выбор</option>
-                                {
-                                    this.props.shift_types.map((shift) => {
-                                        return <option key={shift.id} value={shift.id}>{shift.name}</option>
-                                    })
-                                }
-                            </select>
+                            <input name="cash_start" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cash_start', parseInt(event.target.value))} type="number" />
                         </div>
                         <div className="table-body-row-item">
-                            <select style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('employee', parseInt(event.target.value))}>
-                                <option value="0">Выбор</option>
-                                {
-                                    this.props.employees.map((employee) => {
-                                        return <option key={employee.id} value={employee.id}>{employee.user.username}</option>
-                                    })
-                                }
-                            </select>
+                            <input name="cash_end" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cash_end', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cash_start', parseInt(event.target.value))} type="number" />
+                            <input name="noncash_start" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('noncash_start', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cash_end', parseInt(event.target.value))} />
-                        </div>
-                        <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('noncash_start', parseInt(event.target.value))} />
-                        </div>
-                        <div className="table-body-row-item">
-                            <input style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('noncash_end', parseInt(event.target.value))} />
+                            <input name="noncash_end" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('noncash_end', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
                             <span style={{ color: 'grey' }}>12300</span>

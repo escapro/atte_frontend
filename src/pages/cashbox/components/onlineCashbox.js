@@ -35,16 +35,16 @@ class OnlineCashbox extends Component {
                 <div className="table-body">
                     <div className="table-body-row">
                         <div className="table-body-row-item">
-                            <input type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('sales', parseInt(event.target.value))} />
+                            <input name="sales" type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('sales', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
-                            <input type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cashbox_fact', parseInt(event.target.value))} />
+                            <input name="cashbox_fact" type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cashbox_fact', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
-                            <input type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cash_refund', parseInt(event.target.value))} />
+                            <input name="cash_refund" type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('cash_refund', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
-                            <input type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('noncash_refund', parseInt(event.target.value))} />
+                            <input name="noncash_refund" type="number" style={{ color: 'grey' }} onChange={(event) => this.props.handleChangeData('noncash_refund', parseInt(event.target.value))} />
                         </div>
                         <div className="table-body-row-item">
                             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>

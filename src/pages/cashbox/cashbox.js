@@ -22,6 +22,7 @@ class Cashbox extends Component {
       activeShiftPage: false,
       activeWorkDay: false,
       shift_types: [],
+      cashboxes: [],
       employees: [],
       expenseCategories: [],
       modalIsOpen: false,
@@ -52,6 +53,8 @@ class Cashbox extends Component {
       }
     }
 
+    this.checking_fields = ['cash_end', 'cash_refund', 'cash_start', 'noncash_start', 'cashbox_fact', 'noncash_end', 'noncash_refund', 'sales']
+
     this.handleChangeData = this.handleChangeData.bind(this);
     this.closeShift = this.closeShift.bind(this);
     this.closeWorkingDay = this.closeWorkingDay.bind(this);
@@ -59,11 +62,13 @@ class Cashbox extends Component {
     this.openShift = this.openShift.bind(this);
 
     this.selected_shift = React.createRef();
+    this.selected_cashbox = React.createRef();
   }
 
   componentDidMount() {
     this.checkShift()
     this.getShiftTypes()
+    this.getCashboxes()
     this.getEmployees()
     this.getExpenseCategories()
   }
@@ -71,37 +76,36 @@ class Cashbox extends Component {
   checkShift() {
     this.props.adapter.checkShift()
       .then((result) => {
-        this.setState({
-          activeWorkDay: result.data.active_wd,
-        })
-        if (result.data.exist && result.data.is_current_user) {
-          this.setState({
-            activeShiftPage: result.data.exist,
-            loading: false
-          })
-        }
+        this.setState({activeWorkDay: result.data.active_wd})
+        if (result.data.active_shift) this.setState({activeShiftPage: true})
       })
   }
 
   openShift() {
 
     const selected_shift = this.selected_shift.current.value
+    const selected_cashbox = this.selected_cashbox.current.value
 
     if (selected_shift == 0) {
       alert("Выберите пожалуйста тип смены")
       return
     }
 
+    if (selected_cashbox == 0) {
+      alert("Выберите пожалуйста кассу")
+      return
+    }
+
     let data = {}
 
     data['shift_type'] = selected_shift
+    data['cashbox'] = selected_cashbox
 
     this.props.adapter.openShift(data)
       .then((result) => {
         if (result.data.success) {
           this.setState({
-            activeShiftPage: true,
-            loading: false
+            activeShiftPage: true
           })
         }
       })
@@ -112,6 +116,16 @@ class Cashbox extends Component {
       .then((result) => {
         this.setState({
           shift_types: result.data,
+          loading: false
+        })
+      })
+  }
+
+  getCashboxes() {
+    this.props.adapter.getCashboxes()
+      .then((result) => {
+        this.setState({
+          cashboxes: result.data,
           loading: false
         })
       })
@@ -138,23 +152,35 @@ class Cashbox extends Component {
   }
 
   closeShift() {
+    console.log(this.checking_fields);
+    this.checking_fields.forEach(element => {
+      let f = document.getElementsByName(element)[0]
+      f.classList.remove("error_field")
+    })
     this.props.adapter.activeShift("close", this.state.accounting)
       .then((result) => {
         if (!result.data.success) {
           this.setState(prevState => ({
             difference: {
               ...prevState.difference,
-              cash: result.data.data.cash_difference,
-              noncash: result.data.data.noncash_difference
+              cash: result.data.cash_difference,
+              noncash: result.data.noncash_difference
             }
           }))
 
           this.openModal()
         } else {
           alert("Свобода!\nВаша смена закрыта")
-          this.setState({
-            activeShiftPage: false
-          })
+          window.location.reload()
+        }
+      })
+      .catch((error) => {
+        if(typeof error.response.data.error_fields !== 'undefined') {
+          let error_fields = error.response.data.error_fields
+          for (const [key, value] of Object.entries(error_fields)) {
+            let field = document.getElementsByName(key)[0]
+            field.classList.add("error_field");
+          }
         }
       })
   }
@@ -162,26 +188,15 @@ class Cashbox extends Component {
   closeWorkingDay() {
     this.props.adapter.closeWorkingDay(this.state.accounting)
       .then((result) => {
-        // if (!result.data.success) {
-        //   this.setState(prevState => ({
-        //     difference: {
-        //       ...prevState.difference,
-        //       cash: result.data.data.cash_difference,
-        //       noncash: result.data.data.noncash_difference
-        //     }
-        //   }))
-
-        //   this.openModal()
-        // } else {
-        //   alert("Свобода!\nВаша смена закрыта")
-        //   this.logout()
-        // }
+        if (result.data.success) {
+          alert("Рабочий день был закрыт")
+        }
         this.setState({
           activeWorkDay: false,
         })
       })
       .catch((error) => {
-        alert(error.response.data.message)
+        alert(error.response.data.error_message)
       })
   }
 
@@ -215,7 +230,7 @@ class Cashbox extends Component {
 
   render() {
     return (
-      <>
+      <div className='cashbox'>
         <Modal
           isOpen={this.state.modalIsOpen}
           contentLabel="Example Modal"
@@ -260,6 +275,14 @@ class Cashbox extends Component {
                   })
                 }
               </select>
+              <select style={{ color: 'grey' }} ref={this.selected_cashbox}>
+                <option value="0">Выбор</option>
+                {
+                  this.state.cashboxes.map((cashbox) => {
+                    return <option key={cashbox.id} value={cashbox.id}>{cashbox.name}</option>
+                  })
+                }
+              </select>
             </div>
             :
             <div className="page-wrapper">
@@ -299,7 +322,7 @@ class Cashbox extends Component {
             </div>
         }
         <Footer />
-      </>
+      </div>
     )
   }
 }

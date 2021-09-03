@@ -88,6 +88,13 @@ export class Adapter {
             })
     }
 
+    getCashboxes() {
+        return axios.get(this.getBackendUrl() + 'cashboxes/', this.getApiHeaders())
+            .then(response => {
+                return { 'data': response.data, 'status': response.status }
+            })
+    }
+
     getEmployees() {
         return axios.get(this.getBackendUrl() + 'employees/', this.getApiHeaders())
             .then(response => {
