@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Routers from './routers';
 import { changeUserdata, changeClient, setAdapter } from './store/actions';
-import { Adapter } from './adapters/api'
+import Adapter from './api'
 
 const API = new Adapter()
 
@@ -16,7 +16,8 @@ class App extends Component {
 
     this.allRouterPaths = [
       '/',
-      '/auth'
+      '/auth',
+      '/accounting'
     ]
 
     if (!this.allRouterPaths.includes(window.location.pathname)) window.location.href = '/'
@@ -33,7 +34,6 @@ class App extends Component {
 
     API.subdomain = subdomain
     API.token = props.token
-
   }
 
   async getProfile() {

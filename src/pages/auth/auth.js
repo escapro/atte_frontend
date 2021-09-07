@@ -5,7 +5,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeToken } from '../../store/actions'
-import { profileAPI, tokenAPI } from '../../adapters/api';
 
 class Auth extends Component {
 

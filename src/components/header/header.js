@@ -32,8 +32,9 @@ class Header extends Component {
                     <span>{this.props.user.role}</span>
                 </div>
                 <div className="header-menu">
-                    <div className="header-menu-item">Касса</div>
+                    <div onClick={() => window.location = '/'} className="header-menu-item">Касса</div>
                     <div className="header-menu-item">График</div>
+                    <div onClick={() => window.location = '/accounting'} className="header-menu-item">Отчетность</div>
                 </div>
                 <div className='header-rightMenu'>
                     <div className='header-rightMenu-item' onClick={this.logout}>

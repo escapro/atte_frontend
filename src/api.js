@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export class Adapter {
+export default class Adapter {
     constructor() {
         this.backendHost = '127.0.0.1:8000'
         this.protocol = 'http'
@@ -122,5 +122,12 @@ export class Adapter {
                         return { 'data': response.data, 'status': response.status }
                     })
         }
+    }
+
+    getAccounting() {
+        return axios.get(this.getBackendUrl() + 'accounting/', this.getApiHeaders())
+            .then(response => {
+                return { 'data': response.data, 'status': response.status }
+            })
     }
 }

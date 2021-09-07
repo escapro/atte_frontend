@@ -109,6 +109,11 @@ class Cashbox extends Component {
           })
         }
       })
+      .catch((error) => {
+        if(typeof error.response.data.error_message !== 'undefined') {
+          alert(error.response.data.error_message)
+        }
+      })
   }
 
   getShiftTypes() {
@@ -310,7 +315,7 @@ class Cashbox extends Component {
                     <div className="mt_mb"></div>
                     <div className="tables_wrapper">
                       <CostsTable
-                        shift_types={this.state.shift_types}
+                        shiftType={this.state.shift_types}
                         expenseCategories={this.state.expenseCategories}
                       />
                     </div>
