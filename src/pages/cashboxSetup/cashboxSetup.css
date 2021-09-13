@@ -1,0 +1,19 @@
+.cashbox-settings .setting-section {
+  margin: 20px;
+}
+
+.cashbox-settings .setting-section__item {
+  display: flex;
+}
+
+.cashbox-settings .setting-section__item-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.cashbox-settings .input {
+  border: none;
+  text-align: center;
+  width: 100%;
+}

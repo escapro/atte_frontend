@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment'
 
 export default class Adapter {
     constructor() {
@@ -26,11 +27,19 @@ export default class Adapter {
             })
     }
 
-    getClient() {
-        return axios.get(this.getBackendUrl() + 'clients/', this.getApiHeaders())
-            .then(response => {
-                return { 'data': response.data, 'status': response.status }
-            })
+    client(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'clients/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    })
+            case 'put':
+                return axios.put(this.getBackendUrl() + 'client/update', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    })
+        }
     }
 
     logout() {
@@ -81,11 +90,19 @@ export default class Adapter {
             })
     }
 
-    getShiftTypes() {
-        return axios.get(this.getBackendUrl() + 'shift_types/', this.getApiHeaders())
-            .then(response => {
-                return { 'data': response.data, 'status': response.status }
-            })
+    shiftTypes(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'shift_types/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+            case 'create':
+                return axios.post(this.getBackendUrl() + 'shift_type/new/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
     }
 
     getCashboxes() {
@@ -95,18 +112,34 @@ export default class Adapter {
             })
     }
 
-    getEmployees() {
-        return axios.get(this.getBackendUrl() + 'employees/', this.getApiHeaders())
-            .then(response => {
-                return { 'data': response.data, 'status': response.status }
-            })
+    employee(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'employees/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+            case 'create':
+                return axios.post(this.getBackendUrl() + 'employee/new/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
     }
 
-    getExpenseCategories() {
-        return axios.get(this.getBackendUrl() + 'expense_categories/', this.getApiHeaders())
-            .then(response => {
-                return { 'data': response.data, 'status': response.status }
-            })
+    expenseCategories(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'expense_categories/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    })
+            case 'post':
+                return axios.post(this.getBackendUrl() + 'expense_categorie/new/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    })
+        }
     }
 
     shiftExpenses(action, data) {
@@ -124,10 +157,53 @@ export default class Adapter {
         }
     }
 
-    getAccounting() {
-        return axios.get(this.getBackendUrl() + 'accounting/', this.getApiHeaders())
+    getAccounting(params) {
+        let config = {
+            headers: this.getApiHeaders().headers,
+            params: {
+                from_date: moment(new Date().setDate(1)).format('YYYY-MM-DD'),
+                ...params
+            },
+          }
+
+        return axios.get(this.getBackendUrl() + 'accounting/', config)
             .then(response => {
                 return { 'data': response.data, 'status': response.status }
             })
+    }
+
+    bonuses(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'bonuses/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+            case 'create':
+                return axios.post(this.getBackendUrl() + 'bonuse/new/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
+    }
+
+    additionalExpense(action, data) {
+        switch (action) {
+            case 'post':
+                return axios.post(this.getBackendUrl() + 'additional_expense/new/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
+    }
+
+    additionalExpenseCategory(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'additional_expense_categories/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
     }
 }

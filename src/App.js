@@ -17,7 +17,8 @@ class App extends Component {
     this.allRouterPaths = [
       '/',
       '/auth',
-      '/accounting'
+      '/accounting',
+      '/cashbox-setup'
     ]
 
     if (!this.allRouterPaths.includes(window.location.pathname)) window.location.href = '/'
@@ -55,7 +56,7 @@ class App extends Component {
 
   getClient() {
     if (this.state.isLogin) {
-      API.getClient()
+      API.client('get')
         .then(response => {
           this.props.changeClient(response.data)
           this.setState({loading: false})

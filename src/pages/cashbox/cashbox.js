@@ -117,7 +117,7 @@ class Cashbox extends Component {
   }
 
   getShiftTypes() {
-    this.props.adapter.getShiftTypes()
+    this.props.adapter.shiftTypes('get')
       .then((result) => {
         this.setState({
           shift_types: result.data,
@@ -137,7 +137,7 @@ class Cashbox extends Component {
   }
 
   getEmployees() {
-    this.props.adapter.getEmployees()
+    this.props.adapter.employee('get')
       .then((result) => {
         this.setState({
           employees: result.data,
@@ -147,7 +147,7 @@ class Cashbox extends Component {
   }
 
   getExpenseCategories() {
-    this.props.adapter.getExpenseCategories()
+    this.props.adapter.expenseCategories('get')
       .then((result) => {
         this.setState({
           expenseCategories: result.data,

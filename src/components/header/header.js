@@ -35,6 +35,7 @@ class Header extends Component {
                     <div onClick={() => window.location = '/'} className="header-menu-item">Касса</div>
                     <div className="header-menu-item">График</div>
                     <div onClick={() => window.location = '/accounting'} className="header-menu-item">Отчетность</div>
+                    <div onClick={() => window.location = '/cashbox-setup'} className="header-menu-item">Настройка кассы</div>
                 </div>
                 <div className='header-rightMenu'>
                     <div className='header-rightMenu-item' onClick={this.logout}>

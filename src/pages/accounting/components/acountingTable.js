@@ -21,6 +21,7 @@ function Table({
     getTableBodyProps,
     allColumns,
     headerGroups,
+    footerGroups,
     rows,
     prepareRow,
   } = useTable({
@@ -121,6 +122,15 @@ function Table({
             )
           })}
         </tbody>
+        {/* <tfoot>
+          {footerGroups.map(group => (
+            <tr {...group.getFooterGroupProps()}>
+              {group.headers.map(column => (
+                <td {...column.getFooterProps()}>{ typeof column.Footer == 'object' ? column.render('Footer') : ''}</td>
+              ))}
+            </tr>
+          ))}
+        </tfoot> */}
       </table>
     </div>
   )
@@ -259,12 +269,12 @@ export default function AccountingTable(props) {
     []
   )
 
-  const data = React.useMemo(() => props.detail, [])
+  // const data = React.useMemo(() => props.detail, [])
 
   return (
     <Table
       columns={columns}
-      data={data}
+      data={props.detail}
       getHeaderProps={column => ({
         onClick: () => {
           console.log(column);

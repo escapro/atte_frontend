@@ -21,3 +21,11 @@ table th, table td {
 table td:last-child {
   border-right: 0;
 }
+
+tfoot {
+  font-weight: bolder;
+}
+
+tfoot tr:first-child td{
+  border-top: 2px solid black;
+}
