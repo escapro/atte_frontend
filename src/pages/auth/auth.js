@@ -38,6 +38,9 @@ class Auth extends Component {
         localStorage.setItem('token', response.data.token)
         window.location.pathname = '/'
       })
+      .catch(error => {
+        alert("Неправильный логин или пароль")
+      })
   }
 
   render() {
