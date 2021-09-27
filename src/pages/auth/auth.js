@@ -38,35 +38,9 @@ class Auth extends Component {
         localStorage.setItem('token', response.data.token)
         window.location.pathname = '/'
       })
-
-    // axios
-    // .post('http://127.0.0.1:8000/api/token/', {'username': this.state.username, 'password': this.state.password})
-    // .then(respone => {
-
-    //   this.props.changeToken(respone.data.access)
-
-    //   var config = {
-    //     headers: { 
-    //       'authorization': 'Bearer ' + this.props.token,
-    //       'Accept' : 'application/json',
-    //       'Content-Type': 'application/json'
-    //       }
-    //    };
-
-    //   axios
-    //   .get('http://127.0.0.1:8000/api/profile/', config)
-    //   .then(respone => {
-
-    //     if (respone.data.role == 'manager') {
-    //       this.props.history.push('/projects') 
-    //     }else {
-    //       this.props.history.push('/')
-    //     }
-
-    //   })
-    //   .catch(err => {console.error(err)})
-    // })
-    // .catch(err => {console.error(err)})
+      .catch(error => {
+        alert("Неправильный логин или пароль")
+      })
   }
 
   render() {
