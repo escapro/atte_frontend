@@ -3,7 +3,8 @@ import moment from 'moment'
 
 export default class Adapter {
     constructor() {
-        this.backendHost = '626677-cw59614.tmweb.ru'
+        this.backendHost = '127.0.0.1:8000'
+        // this.backendHost = '626677-cw59614.tmweb.ru'
         this.protocol = 'http'
         this.subdomain = ''
         this.token = ''
