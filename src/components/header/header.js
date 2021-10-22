@@ -42,7 +42,7 @@ class Header extends Component {
                         this.props.user.role == "manager"
                         ? 
                         <>
-                            <div className="header-menu-item">График</div>
+                            <div onClick={() => window.location = '/payroll'} className="header-menu-item">Расчёт ЗП</div>
                             <div onClick={() => window.location = '/'} className="header-menu-item">Отчетность</div>
                             <div onClick={() => window.location = '/cashbox-setup'} className="header-menu-item">Настройка кассы</div>
                         </>

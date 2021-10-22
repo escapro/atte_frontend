@@ -18,7 +18,8 @@ class App extends Component {
       '/',
       '/auth',
       '/accounting',
-      '/cashbox-setup'
+      '/cashbox-setup',
+      '/payroll'
     ]
 
     if (!this.allRouterPaths.includes(window.location.pathname)) window.location.href = '/'

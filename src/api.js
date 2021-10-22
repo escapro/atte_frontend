@@ -165,7 +165,7 @@ export default class Adapter {
                 from_date: moment(new Date().setDate(1)).format('YYYY-MM-DD'),
                 ...params
             },
-          }
+        }
 
         return axios.get(this.getBackendUrl() + 'accounting/', config)
             .then(response => {
@@ -202,6 +202,24 @@ export default class Adapter {
         switch (action) {
             case 'get':
                 return axios.get(this.getBackendUrl() + 'additional_expense_categories/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
+    }
+
+    payrolls(action, data, params) {
+        switch (action) {
+            case 'get':
+                let config = {
+                    headers: this.getApiHeaders().headers,
+                    params: {
+                        date_month: moment(new Date().setDate(1)).format('MM'),
+                        date_year: moment(new Date().setDate(1)).format('YYYY'),
+                        ...params
+                    },
+                }
+                return axios.get(this.getBackendUrl() + 'payrolls/', config)
                     .then(response => {
                         return { 'data': response.data, 'status': response.status }
                     });

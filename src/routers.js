@@ -5,6 +5,7 @@ import Accounting from './pages/accounting/accounting'
 import { Component } from "react";
 import cashboxSetup from "./pages/cashboxSetup/cashboxSetup";
 import { connect } from 'react-redux';
+import Payroll from "./pages/payroll/payroll";
 
 class Routers extends Component {
 
@@ -25,6 +26,7 @@ class Routers extends Component {
                             <Route path="/" component={Cashbox} exact />
                             :
                            <>
+                                <Route path="/payroll" component={Payroll} exact />
                                 <Route path="/" component={Accounting} exact />
                                 <Route path="/cashbox-setup" component={cashboxSetup} exact />
                            </>
