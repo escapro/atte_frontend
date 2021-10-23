@@ -6,6 +6,7 @@ import '../../assets/style.css'
 import './payroll.css'
 import PayrollHeader from './components/payrollHeader';
 import PayrollTable from './components/PayrollTable'
+import PaidSalariesTable from './components/paidSalariesTable';
 
 class Payroll extends Component {
 
@@ -22,10 +23,10 @@ class Payroll extends Component {
             <div className="cashbox_setup">
                 <Header />
                 <div>
-                    <PayrollHeader
-                        payrolls={this.state.payrolls}
-                    />
+                    <PayrollHeader/>
                     <PayrollTable/>
+                    <br/>
+                    <PaidSalariesTable/>
                 </div>
                 <Footer />
             </div>

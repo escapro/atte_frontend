@@ -225,4 +225,27 @@ export default class Adapter {
                     });
         }
     }
+
+    paidSalary(action, data, params) {
+        switch (action) {
+            case 'get':
+                let config = {
+                    headers: this.getApiHeaders().headers,
+                    params: {
+                        date_month: moment(new Date().setDate(1)).format('MM'),
+                        date_year: moment(new Date().setDate(1)).format('YYYY'),
+                        ...params
+                    },
+                }
+                return axios.get(this.getBackendUrl() + 'paid_salaries/', config)
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+            case 'create':
+                return axios.post(this.getBackendUrl() + 'paid_salary/new/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
+    }
 }

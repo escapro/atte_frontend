@@ -4,6 +4,6 @@ table th.payroll-paeriod-header {
 }
 
 
-table th.payroll-period-header__bold_border {
-    border-left: 2px solid black;
+.payroll-table table .table_row_bold_border {
+    border-left: 2px solid black!important;
 }

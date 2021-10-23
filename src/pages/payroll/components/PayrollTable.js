@@ -43,14 +43,14 @@ class PayrollTable extends Component {
                                                 <>
                                                     {groups.map((value, valueInd) => {
                                                         return (
-                                                            <th className={`payroll-paeriod-header ${valueInd == 0 ? 'payroll-period-header__bold_border' : ''}`}>{value}</th>
+                                                            <th className={`payroll-paeriod-header ${valueInd == 0 ? 'table_row_bold_border' : ''}`}>{value}</th>
                                                         )
                                                     })}
                                                 </>
                                             )
                                         })
                                     }
-                                    <th className="payroll-period-header__bold_border">Итого</th>
+                                    <th className="table_row_bold_border">Итого</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,13 +61,14 @@ class PayrollTable extends Component {
                                                 <td>{payroll.employee}</td>
                                                 {Object.keys(payroll.periods).map((key, value) => (
                                                     <>
-                                                        <td>{payroll.periods[key].from_shift}</td>
+                                                        <td className="table_row_bold_border">{payroll.periods[key].from_shift}</td>
                                                         <td>{payroll.periods[key].from_interest}</td>
-                                                        <td>{0}</td>
-                                                        <td>{0}</td>
+                                                        <td>{payroll.periods[key].summary}</td>
+                                                        <td>{payroll.periods[key].paid_salary}</td>
                                                     </>
                                                 )
                                                 )}
+                                                <td className="table_row_bold_border">{payroll.total}</td>
                                             </tr>
                                         )
                                     })
