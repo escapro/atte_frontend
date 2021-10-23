@@ -47,6 +47,11 @@ class Accounting extends Component {
                     loading: false
                 })
             })
+            .catch((result) => {
+                if(result.response.data.error != undefined) {
+                    alert(result.response.data.error)
+                }
+            })
     }
 
     onUrlParamsChange(field, value, update=false) {
