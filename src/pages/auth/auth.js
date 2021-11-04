@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../assets/style.css'
 import './auth.css'
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeToken } from '../../store/actions'
