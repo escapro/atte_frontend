@@ -3,7 +3,7 @@ import moment from 'moment'
 
 export default class Adapter {
     constructor() {
-        this.backendHost = '127.0.0.1:8000'
+        this.backendHost = 'attedev:8000'
         // this.backendHost = '626677-cw59614.tmweb.ru'
         this.protocol = 'http'
         this.subdomain = ''
@@ -162,7 +162,9 @@ export default class Adapter {
         let config = {
             headers: this.getApiHeaders().headers,
             params: {
-                from_date: moment(new Date().setDate(1)).format('YYYY-MM-DD'),
+                // from_date: moment(new Date().setDate(1)).format('YYYY-MM-DD'),
+                from_date: '2021-10-01',
+                to_date: '2021-11-01',
                 ...params
             },
         }

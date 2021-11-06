@@ -21,7 +21,8 @@ class Accounting extends Component {
             summary: {},
             expenses: {},
             options: {},
-            url_params: {}
+            url_params: {},
+            accoutingHeaderLoading: true
         }
     }
 
@@ -44,24 +45,28 @@ class Accounting extends Component {
                     summary: result.data.summary,
                     expenses: result.data.expenses,
                     options: result.data.options,
-                    loading: false
+                    loading: false,
+                    accoutingHeaderLoading: false
                 })
             })
-            .catch((result) => {
-                if(result.response.data.error != undefined) {
-                    alert(result.response.data.error)
-                }
-            })
+            // .catch((result) => {
+            //     if (result.response.data.error != undefined) {
+            //         this.setState({
+            //             accoutingHeaderLoading: false,
+            //         })
+            //         alert(result.response.data.error)
+            //     }
+            // })
     }
 
-    onUrlParamsChange(field, value, update=false) {
+    onUrlParamsChange(field, value, update = false) {
         this.setState(prevState => ({
             url_params: {
                 ...prevState.url_params,
                 [field]: value
             }
         }), () => {
-            if(update) this.updateAccountingData()
+            if (update) this.updateAccountingData()
         })
     }
 
@@ -73,13 +78,14 @@ class Accounting extends Component {
         return (
             <div className="accouting">
                 <Header></Header>
-                {!this.state.loading ?
+                {!this.state.accoutingHeaderLoading ?
                     <AccoutingHeader
                         pagination={this.state.options.pagination}
                         onUrlParamsChange={(field, value, update) => this.onUrlParamsChange(field, value, update)}
                         getUrlParams={() => this.getUrlParams()}
                         updateAccountingData={() => this.updateAccountingData()}
-                    /> : null}
+                    />
+                    : null}
                 {!this.state.loading ?
                     <div className="mh-20">
                         <AccountingTable

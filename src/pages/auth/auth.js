@@ -4,6 +4,8 @@ import './auth.css'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeToken } from '../../store/actions'
+import logo from '../../assets/icons/logo_large.png'
+import authButton from '../../assets/icons/auth-button.svg'
 
 class Auth extends Component {
 
@@ -45,13 +47,26 @@ class Auth extends Component {
   render() {
     return (
       <div className="auth">
-        <h1>Вход в систему</h1>
-        <div className="auth-form">
-          <form onSubmit={this.login}>
-            <input type="text" placeholder="Имя пользователя" value={this.state.username} onChange={this.handleChangeUsername} ></input>
-            <input type="password" placeholder="Пароль" value={this.state.password} onChange={this.handleChangePassword}></input>
-            <input type="submit"></input>
-          </form>
+        <div className="container">
+          <img src={logo} alt={"logo"} />
+          <div className="auth-form">
+            <form onSubmit={this.login}>
+              <div className="flex-row ai-center">
+                <div className="flex-column">
+                  <input type="text" placeholder="Имя пользователя" value={this.state.username} onChange={this.handleChangeUsername} ></input>
+                  <input type="password" placeholder="Пароль" value={this.state.password} onChange={this.handleChangePassword}></input>
+                </div>
+                <button className="auth-button" onClick={(e) => this.login(e)}>
+                  <img src={authButton} alt={"logo"} />
+                </button>
+              </div>
+            </form>
+            <div className="auth-description">
+              <p>Инфа про то что это за платформа для чего она нужна если что звоните по номеру</p>
+              <br/>
+              <p>+79818655655</p>
+            </div>
+          </div>
         </div>
       </div>
     )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader-spinner'
-import './assets/style.css';
+// import './assets/style.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Routers from './routers';
