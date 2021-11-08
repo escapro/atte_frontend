@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader-spinner'
-// import './assets/style.css';
+import './assets/styles/bootstrap.css';
+import './assets/styles/bootstrap-grid.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Routers from './routers';

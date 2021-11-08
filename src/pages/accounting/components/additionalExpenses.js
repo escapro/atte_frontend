@@ -70,7 +70,7 @@ class AdditionalExpenses extends Component {
     render() {
         return (
             <div className="cashbox-settings">
-                <div className="setting-section">
+                <div className="setting-section overflow-auto">
                     <div className="setting-section__item">
                         <div className="setting-section__item-title">Дополнительные расходы: </div>
                         <table>

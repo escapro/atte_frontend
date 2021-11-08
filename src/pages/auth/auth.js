@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import '../../assets/style.css'
-import './auth.css'
+import './auth.scss'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeToken } from '../../store/actions'
 import logo from '../../assets/icons/logo_large.png'
 import authButton from '../../assets/icons/auth-button.svg'
+import rightBackground from '../../assets/images/auth_page_gradient.png'
 
 class Auth extends Component {
 
@@ -46,25 +47,36 @@ class Auth extends Component {
 
   render() {
     return (
-      <div className="auth">
-        <div className="container">
-          <img src={logo} alt={"logo"} />
-          <div className="auth-form">
-            <form onSubmit={this.login}>
-              <div className="flex-row ai-center">
-                <div className="flex-column">
-                  <input type="text" placeholder="Имя пользователя" value={this.state.username} onChange={this.handleChangeUsername} ></input>
-                  <input type="password" placeholder="Пароль" value={this.state.password} onChange={this.handleChangePassword}></input>
+      <div className="auth-page">
+        <div className="right-background ">
+          {/* <img src={rightBackground} alt={"rightBackground"} /> */}
+        </div>
+        <div className="wrapper">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-5 col-md-12 auth-left">
+                <div className="logo">
+                  <img className="col-7 col-sm-6 col-md-4 col-lg-9 col-xl-6" src={logo} alt={"logo"} />
                 </div>
-                <button className="auth-button" onClick={(e) => this.login(e)}>
-                  <img src={authButton} alt={"logo"} />
-                </button>
+                <div className="auth-form">
+                  <form className="d-flex flex-sm-row" onSubmit={this.login}>
+                    <div className="d-flex flex-column inputs-block">
+                      <input type="text" placeholder="Введите логин" value={this.state.username} onChange={this.handleChangeUsername} ></input>
+                      <input type="password" placeholder="Введите пароль" value={this.state.password} onChange={this.handleChangePassword}></input>
+                    </div>
+                    <button className="auth-button" onClick={(e) => this.login(e)}>
+                      <img src={authButton} alt={"logo"} />
+                    </button>
+                  </form>
+                  <div className="auth-description col-xl-8 col-lg-12 col-md-7 col-sm-8 col-12">
+                    <p>Инфа про то что это за платформа для чего она нужна если что звоните по номеру</p>
+                    <br />
+                    <p className="text-decoration-underline">+79818655655</p>
+                  </div>
+                </div>
               </div>
-            </form>
-            <div className="auth-description">
-              <p>Инфа про то что это за платформа для чего она нужна если что звоните по номеру</p>
-              <br/>
-              <p>+79818655655</p>
+              <div className="col-lg-7">
+              </div>
             </div>
           </div>
         </div>
