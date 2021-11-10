@@ -9,7 +9,6 @@ const defaultPropGetter = () => ({})
 
 // Expose some prop getters for headers, rows and cells, or more if you want!
 function Table({
-  sendData,
   columns,
   data,
   getHeaderProps = defaultPropGetter,
@@ -29,12 +28,6 @@ function Table({
     columns,
     data,
   })
-
-  const demoMethod = () => {
-    sendData(() => {
-      var qwe = 'asd'
-    });
-  }
 
   const getColumnById = (id) => {
     let result = null
@@ -69,7 +62,7 @@ function Table({
   return (
     <div>
       <div style={{ display: 'flex' }}>
-        {Object.keys(headerGroupColumnsId.cashboxes).map((key, index) =>
+        {/* {Object.keys(headerGroupColumnsId.cashboxes).map((key, index) =>
         (
           <div key={key}>
             <label>
@@ -78,7 +71,7 @@ function Table({
             </label>
           </div>
         )
-        )}
+        )} */}
       </div>
       <table {...getTableProps()}>
         <thead>
@@ -276,16 +269,10 @@ export default function AccountingTable(props) {
     []
   )
 
-  const getData = (val) => {
-    // do not forget to bind getData in constructor
-    console.log(val);
-  }
-
   // const data = React.useMemo(() => props.detail, [])
 
   return (
     <Table
-      sendData={getData}
       columns={columns}
       data={props.detail}
       getHeaderProps={column => ({

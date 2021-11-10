@@ -8,6 +8,7 @@ import AccountingTable from './components/acountingTable'
 import Summary from './components/summary';
 import AdditionalExpenses from './components/additionalExpenses';
 import AccoutingHeader from './components/accoutingHeader';
+import Table from '../../components/table/table';
 
 class Accounting extends Component {
 
@@ -92,10 +93,11 @@ class Accounting extends Component {
                 {!this.state.loading ?
                     <div className="container">
                         <div className="overflow-auto">
-                            <AccountingTable
+                            <Table />
+                            {/* <AccountingTable
                                 detail={this.state.detail}
                                 headers={this.state.headers}
-                            />
+                            /> */}
                         </div>
                     </div>
                     : null}

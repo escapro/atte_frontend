@@ -6,6 +6,7 @@ import { Component } from "react";
 import cashboxSetup from "./pages/cashboxSetup/cashboxSetup";
 import { connect } from 'react-redux';
 import Payroll from "./pages/payroll/payroll";
+import { Link } from 'react-router-dom';
 
 class Routers extends Component {
 
