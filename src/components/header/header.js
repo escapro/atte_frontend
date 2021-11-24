@@ -56,7 +56,10 @@ class Header extends Component {
                             {
                                 this.props.user.role == "employee"
                                     ?
-                                    <div onClick={() => window.location = '/'} className="header-menu-item">Касса</div>
+                                    <>
+                                        <div onClick={() => window.location = '/'} className={"header-menu-item " + (history.location.pathname == "/" ? 'active' : '')}>Касса</div>
+                                        <div onClick={() => window.location = '/schedule'} className={"header-menu-item " + (history.location.pathname == "/schedule" ? 'active' : '')}>График</div>
+                                    </>
                                     : ''
                             }
                             {

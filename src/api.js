@@ -250,4 +250,34 @@ export default class Adapter {
                     });
         }
     }
+
+    dailyShiftSchedule(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'daily_shift_schedule/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+            case 'create':
+                return axios.post(this.getBackendUrl() + 'daily_shift_schedule/new/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
+    }
+
+    wishesDailyShift(action, data) {
+        switch (action) {
+            case 'get':
+                return axios.get(this.getBackendUrl() + 'wishes_daily_shift/', this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+            case 'create':
+                return axios.post(this.getBackendUrl() + 'wishes_daily_shift/new/', data, this.getApiHeaders())
+                    .then(response => {
+                        return { 'data': response.data, 'status': response.status }
+                    });
+        }
+    }
 }

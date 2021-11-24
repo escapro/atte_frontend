@@ -4,9 +4,9 @@ import Auth from './pages/auth/auth'
 import Accounting from './pages/accounting/accounting'
 import { Component } from "react";
 import cashboxSetup from "./pages/cashboxSetup/cashboxSetup";
+import shiftSchedule from "./pages/shiftSchedule/shiftSchedule";
 import { connect } from 'react-redux';
 import Payroll from "./pages/payroll/payroll";
-import { Link } from 'react-router-dom';
 
 class Routers extends Component {
 
@@ -21,18 +21,21 @@ class Routers extends Component {
                 <Switch>
                     {
                         this.props.user != ""
-                        ?
-                        this.props.user.role == "employee"
                             ?
-                            <Route path="/" component={Cashbox} exact />
+                            this.props.user.role == "employee"
+                                ?
+                                <>
+                                    <Route path="/" component={Cashbox} exact />
+                                    <Route path="/schedule" component={shiftSchedule} exact />
+                                </>
+                                :
+                                <>
+                                    <Route path="/payroll" component={Payroll} exact />
+                                    <Route path="/" component={Accounting} exact />
+                                    <Route path="/cashbox-setup" component={cashboxSetup} exact />
+                                </>
                             :
-                           <>
-                                <Route path="/payroll" component={Payroll} exact />
-                                <Route path="/" component={Accounting} exact />
-                                <Route path="/cashbox-setup" component={cashboxSetup} exact />
-                           </>
-                        :
-                        ''
+                            ''
                     }
                     <Route path="/auth" component={Auth} exact />
                     {/* <Route path="/accounting" component={Accounting} exact /> */}
